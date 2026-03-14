@@ -1,7 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
 import React,{useEffect} from "react";
 import { Navigate } from "react-router";
-import { getProfile } from "../servies/auth.api";
 
 const Protected= ({children})=>{
     const {Loader,User}=useAuth();

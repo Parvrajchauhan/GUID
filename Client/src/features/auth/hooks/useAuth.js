@@ -1,6 +1,6 @@
 import { useContext} from "react";
 import { AuthContext } from "../auth.context";
-import { loginUser,registerUser,logoutUser,getProfile} from "../servies/auth.api";
+import { loginUser,registerUser,logoutUser,getProfile} from "../service/auth.api";
 
 
 
