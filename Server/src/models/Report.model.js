@@ -5,19 +5,9 @@ const QuestionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  answer: {
-    type: String,
-  },
   intention: {
     type: String,
-  },
-  difficulty: {
-    type: String,
-    enum: ["Easy", "Medium", "Hard"],
-  },
-  topic: {
-    type: String,
-  },
+  }
 },{
     _id: false
 });
@@ -36,9 +26,6 @@ const SkillGapSchema = new mongoose.Schema({
 });
 
 const PreparationPlanSchema = new mongoose.Schema({
-  day: {
-    type: Number,
-  },
   focusArea: {
     type: String,
   },
@@ -69,10 +56,6 @@ const ReportSchema = new mongoose.Schema(
       required: true,
     },
 
-    resumeFileUrl: {
-      type: String,
-    },
-
     matchScore: {
       type: Number,
       required: true,
@@ -96,12 +79,6 @@ const ReportSchema = new mongoose.Schema(
       },
     ],
 
-    missingKeywords: [
-      {
-        type: String,
-      },
-    ],
-
     skillGap: [SkillGapSchema],
 
     technicalQuestions: [QuestionSchema],
@@ -115,4 +92,5 @@ const ReportSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Report", ReportSchema);
+const Report = mongoose.model("Report", ReportSchema);
+module.exports = Report;
