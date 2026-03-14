@@ -11,7 +11,7 @@ const reportController = async (req, res) => {
     const aiResponse = await generateResponse({jobTitle, jobDescription, resumeText});
 
     const newReport = await Report.create({
-        userId: req.user.id,
+        user: req.user.id,
         jobTitle:jobTitle,
         jobDescription: jobDescription,
         resumeText: resumeText,
@@ -29,6 +29,31 @@ const reportController = async (req, res) => {
 
 };
 
-module.exports = {reportController}
+const getReportById = async (req, res) => {
+    const {reportId} = req.params;
+
+    try {
+        const report = await Report.findOne({ _id: reportId, user: req.user.id });
+
+        if (!report) {
+            return res.status(404).json({ message: "Report not found", req: req.body, user: req.user });
+        }
+        res.json({ message: "Report found", report });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+const getAllReports = async (req, res) => {
+    try {
+        const reports = await Report.find({ user: req.user.id }).sort({ createdAt: -1 });
+        res.json({ message: "Reports retrieved successfully", reports });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+
+module.exports = {reportController, getReportById, getAllReports};
 
 

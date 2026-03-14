@@ -4,6 +4,7 @@ import Login from './features/auth/pages/login';
 import Protected from './features/auth/components/protected';
 import LogoutButton from './features/auth/components/logout';
 import Input from './features/Report/pages/Input';
+import Report from './features/Report/pages/report';
 
 export const Router= createBrowserRouter([
     {
@@ -21,5 +22,9 @@ export const Router= createBrowserRouter([
     {
         path:"/report",
         element:<Protected><Input/></Protected>
+    },
+    {
+        path:"/data/:reportId",
+        element:<Protected><Report/></Protected>
     }
 ])
