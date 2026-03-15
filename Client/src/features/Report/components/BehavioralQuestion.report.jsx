@@ -1,11 +1,11 @@
-import Panel from "./panel.report";
-import Tag from "./Tag.report";
 import QCard from "./QCard.report";
 
 const BehavioralQuestions = ({ r }) => {
   return (
-    <Panel>
-      <Tag>04 · Behavioral</Tag>
+    <div className="h-full overflow-y-auto rounded-xl p-5 md:p-7
+    bg-[rgba(20,20,20,0.78)] border border-slate-600/20 backdrop-blur-lg">
+    
+      <p className="text-xs font-bold tracking-widest uppercase mb-1 text-[#5F8190] font-mono">04 · Behavioral</p>
 
       <h2 className="text-2xl font-bold mb-5 text-[#E2F0F0] font-serif">
         Behavioral Questions
@@ -21,7 +21,7 @@ const BehavioralQuestions = ({ r }) => {
           />
         ))}
       </div>
-    </Panel>
+    </div>
   );
 };
 

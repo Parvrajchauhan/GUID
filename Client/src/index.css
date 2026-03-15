@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
-:root,body,html {
-  width: 100%;
-  background-color:rgb(39, 39, 39);
-  color: aliceblue;
+@theme {
+  --color-slateDeep: #36565F;
+  --color-oceanSteel: #5F8190;
+  --color-cloudMist: #E2F0F0;
+  --color-jetBlack: #141414;
+  --color-pureWhite: #FFFFFF;
 }
 
-
-h1{
-  color: beige;
+:root, body, html {
+  width: 100%;
+  background-color: var(--color-cloudMist);
+  color: var(--color-jetBlack);
 }

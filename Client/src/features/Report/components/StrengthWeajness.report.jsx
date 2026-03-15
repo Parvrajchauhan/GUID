@@ -1,11 +1,10 @@
-import Panel from "./panel.report";
-import Tag from "./Tag.report";
 
 
 const StrengthsWeaknesses = ({ r }) => {
   return (
-    <Panel>
-      <Tag>02 · Assessment</Tag>
+    <div className="h-full overflow-y-auto rounded-xl p-5 md:p-7
+    bg-[rgba(20,20,20,0.78)] border border-slate-600/20 backdrop-blur-lg">
+      <p className="text-xs font-bold tracking-widest uppercase mb-1 text-[#5F8190] font-mono">02 · Assessment</p>
 
       <h2 className="text-2xl font-bold mb-5 text-[#E2F0F0] font-serif">
         Strengths & Weaknesses
@@ -52,7 +51,7 @@ const StrengthsWeaknesses = ({ r }) => {
         </div>
 
       </div>
-    </Panel>
+    </div>
   );
 };
 
