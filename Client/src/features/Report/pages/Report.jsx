@@ -7,11 +7,13 @@ import PreparationPlan from "../components/PreparationalPlan.report";
 import { TABS, TAB_ICONS } from "../components/tab.report";
 import { useParams, useNavigate } from "react-router";
 import { useReport } from "../hooks/report.hook";
+import LogoutButton from "../../auth/components/logout";
 import Cube from "../components/cube.input";
+
 
 const Report = () => {
     const [active, setActive] = useState("overview");
-    const { Report, Loader, UsegetById,Usegetall } = useReport();
+    const { Report, Loader, UsegetById, ResumePdf } = useReport();
     const { reportId } = useParams();
     const navigate = useNavigate();
 
@@ -32,12 +34,12 @@ const Report = () => {
 
     const renderPanel = () => {
         switch (active) {
-            case "overview":   return <Overview r={Report} />;
+            case "overview": return <Overview r={Report} />;
             case "assessment": return <StrengthsWeaknesses r={Report} />;
-            case "technical":  return <TechnicalQuestions r={Report} />;
+            case "technical": return <TechnicalQuestions r={Report} />;
             case "behavioral": return <BehavioralQuestions r={Report} />;
-            case "plan":       return <PreparationPlan r={Report} />;
-            default:           return null;
+            case "plan": return <PreparationPlan r={Report} />;
+            default: return null;
         }
     };
 
@@ -47,9 +49,9 @@ const Report = () => {
     return (
         <div className="flex flex-col lg:flex-row h-screen w-screen overflow-hidden bg-gradient-to-br from-[#0f1c22] via-[#182830] to-[#1e3540]">
 
-            {/* ══════════════════════════════
+            {/* 
                 DESKTOP SIDEBAR  (lg+)
-            ══════════════════════════════ */}
+           */}
             <nav className="
                 hidden lg:flex flex-col flex-shrink-0
                 w-64
@@ -69,7 +71,6 @@ const Report = () => {
                     </span>
                 </div>
 
-                {/* Divider */}
                 <div className="h-px bg-white/[0.06] mx-4 mb-3" />
 
                 {/* Nav tabs */}
@@ -107,25 +108,69 @@ const Report = () => {
                 </div>
 
                 {/* Cube */}
-                <div className="flex items-center justify-center w-full">
+                <div className="flex items-center justify-center w-full ">
                     <Cube />
                 </div>
 
-                {/* Divider */}
-                <div className="h-px bg-white/[0.06] mx-4 mt-3 mb-2" />
+                {/* Desktop Boost button — full width, between cube and divider */}
+                <div className="px-3 mt-10 mb-1">
+                    <button
+                        onClick={() => { ResumePdf(reportId) }}
+                        className="
+    relative overflow-hidden
+    w-full flex items-center justify-center gap-2.5
+    px-4 py-3 rounded-xl
+    text-[13px] font-bold tracking-wide text-[#E2F0F0]
+
+    bg-gradient-to-r from-[#36565F] to-[#5F8190]
+    border border-[#5F8190]/40
+
+    shadow-[0_0_15px_rgba(95,129,144,0.35)]
+    hover:shadow-[0_0_20px_rgba(95,129,144,0.7),0_0_70px_rgba(95,129,144,0.3)]
+
+    hover:scale-[1.02]
+    active:scale-[0.97]
+
+    transition-all duration-300 ease-out
+    group
+  "
+                    >
+                        
+
+                        {/* icon */}
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="relative text-[#E2F0F0] flex-shrink-0"
+                        >
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+
+                        <span className="relative">Boost Resume</span>
+                    </button>
+                </div>
+
+                <div className="h-px bg-white/[0.06] mx-4 mt-2 mb-2" />
 
                 {/* Analyze More */}
                 <button
                     onClick={() => navigate("/report")}
                     className="
-                        mx-3 flex items-center gap-3 px-4 py-2.5 rounded-xl
+                        mx-3 mb-2 flex items-center gap-3 px-4 py-2.5 rounded-xl
                         text-[14px] font-semibold text-oceanSteel
                         border border-oceanSteel/20 bg-oceanSteel/5
                         hover:bg-oceanSteel/15 hover:border-oceanSteel/40 hover:text-white
                         transition-all duration-200 group
                     "
                 >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                         className="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
                         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
                         <path d="M16 17l5-5-5-5" />
@@ -133,47 +178,81 @@ const Report = () => {
                     </svg>
                     <span>Analyze More Resume</span>
                 </button>
+
+                {/* Logout */}
+                <div className="mx-3">
+                    <LogoutButton />
+                </div>
             </nav>
 
-            {/* ══════════════════════════════
+            {/* 
                 MAIN CONTENT AREA
-            ══════════════════════════════ */}
+             */}
             <div className="flex-1 flex flex-col overflow-hidden min-w-0">
 
                 {/* Top bar */}
-                <header className="flex items-center gap-4 px-5 lg:px-8 pt-5 lg:pt-7 pb-3 lg:pb-4 flex-shrink-0">
-                    <div>
-                        <p className="text-[11px] font-bold text-[#5F8190] uppercase tracking-[0.18em] mb-1.5">
+                <header className="flex items-center gap-2 px-4 lg:px-8 pt-5 lg:pt-7 pb-3 lg:pb-4 flex-shrink-0">
+
+                    {/* Title block */}
+                    <div className="min-w-0 flex-1">
+                        <p className="text-[11px] font-bold text-[#5F8190] uppercase tracking-[0.18em] mb-1 truncate">
                             0{activeTabIndex + 1} · {activeTab?.label}
                         </p>
-                        <h1 className="text-2xl lg:text-[28px] font-extrabold text-white tracking-tight leading-none">
+                        <h1 className="text-xl lg:text-[28px] font-extrabold text-white tracking-tight leading-none truncate">
                             Resume Analysis
                         </h1>
                     </div>
 
-                    <div className="flex-1" />
+                    {/* Right-side icon buttons — all same size on mobile */}
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
 
-                    {/* Mobile-only: Analyze New button */}
-                    <button
-                        onClick={() => navigate("/report")}
-                        className="
-                            lg:hidden flex items-center gap-2
-                            px-3 py-2 rounded-xl
-                            text-[13px] font-semibold text-[#7ecfeb]
-                            border border-[#7ecfeb]/20 bg-[#7ecfeb]/5
-                            hover:bg-[#7ecfeb]/10 transition-all duration-200
-                        "
-                    >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19" />
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                        </svg>
-                        <span>New</span>
-                    </button>
+                        {/* Boost — mobile icon-only square button */}
+                        <button
+                            onClick={() => { ResumePdf(reportId) }}
+                            title="Boost Resume"
+                            className="
+                                lg:hidden
+                                w-9 h-9 rounded-xl flex items-center justify-center
+                                text-[#5F8190] bg-[#36565F]/25 border border-[#5F8190]/25
+                                hover:bg-[#5F8190]/25 hover:border-[#5F8190]/50
+                                hover:text-[#E2F0F0]
+                                active:scale-95 transition-all duration-200
+                            "
+                        >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                        </button>
+
+                        {/* New — mobile */}
+                        <button
+                            onClick={() => navigate("/report")}
+                            title="New analysis"
+                            className="
+                                lg:hidden
+                                w-9 h-9 rounded-xl flex items-center justify-center
+                                text-[#7ecfeb] bg-[#7ecfeb]/[0.08] border border-[#7ecfeb]/20
+                                hover:bg-[#7ecfeb]/15
+                                active:scale-95 transition-all duration-200
+                            "
+                        >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                        </button>
+
+                        {/* Logout — mobile */}
+                        <div className="lg:hidden">
+                            <LogoutButton />
+                        </div>
+                    </div>
                 </header>
 
                 {/* Accent divider */}
-                <div className="mx-5 lg:mx-8 mb-3 lg:mb-5 h-px bg-gradient-to-r from-[#7ecfeb]/25 via-[#5F8190]/10 to-transparent" />
+                <div className="mx-4 lg:mx-8 mb-3 lg:mb-5 h-px bg-gradient-to-r from-[#7ecfeb]/25 via-[#5F8190]/10 to-transparent" />
 
                 {/* Panel */}
                 <main className="flex-1 overflow-hidden px-3 lg:px-6 pb-2 lg:pb-6 min-h-0">
@@ -209,17 +288,12 @@ const Report = () => {
                                 }
                             `}
                         >
-                            {/* Active top pill */}
                             {isActive && (
                                 <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[1px] w-8 h-[2.5px] rounded-full bg-[#7ecfeb]" />
                             )}
-
-                            {/* Icon */}
                             <span className={`transition-transform duration-200 ${isActive ? "scale-[1.15]" : "scale-100"}`}>
                                 {TAB_ICONS[tab.id] ?? tab.icon}
                             </span>
-
-                            {/* Short label */}
                             <span className={`text-[9px] font-bold tracking-wider uppercase leading-none ${isActive ? "opacity-100" : "opacity-40"}`}>
                                 {tab.short ?? tab.label.slice(0, 5)}
                             </span>

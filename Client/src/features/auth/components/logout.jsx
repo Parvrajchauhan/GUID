@@ -8,8 +8,8 @@ const LogoutButton = () => {
 
   const onLogout = async () => {
     try {
+      navigate("/");
       await handleLogout();
-      navigate("/login");
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -19,8 +19,37 @@ const LogoutButton = () => {
     <button
       onClick={onLogout}
       disabled={Loader}
-      className="px-6 py-3 rounded-xl font-semibold text-sm tracking-wide text-[#E2F0F0] bg-gradient-to-br from-[#36565F] to-[#5F8190] shadow-[0_4px_20px_rgba(54,86,95,0.4)] transition-all duration-200 hover:opacity-90 active:scale-95 disabled:opacity-50"
+      className="
+      flex items-center gap-2
+      px-5 py-2.5
+      rounded-xl
+      text-sm font-semibold
+      text-red-400
+      border border-red-400/30
+      bg-red-400/5
+      hover:bg-red-400/10
+      hover:border-red-400/50
+      transition-all duration-200
+      active:scale-95
+      disabled:opacity-50
+      "
     >
+      {/* Icon */}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+      </svg>
+
       {Loader ? "Logging out..." : "Logout"}
     </button>
   );

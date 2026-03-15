@@ -5,6 +5,7 @@ import Protected from './features/auth/components/protected';
 import LogoutButton from './features/auth/components/logout';
 import Input from './features/Report/pages/Input';
 import Report from './features/Report/pages/report';
+import LandingPage from './features/Report/pages/LandingPage';
 
 export const Router= createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const Router= createBrowserRouter([
     },
     {
         path:"/",
-        element:(<Protected><h1>Home Page</h1><LogoutButton/></Protected>)
+        element:(<LandingPage/>)
     },
     {
         path:"/report",

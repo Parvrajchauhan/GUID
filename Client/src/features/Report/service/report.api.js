@@ -33,3 +33,16 @@ export const getall=async ()=>{
 
     return response.data
 }
+
+export const ResumeBoost = async ({ reportId }) => {
+  const response = await api.post(
+    `/api/report/resume/pdf/${reportId}`,
+    null,
+    {
+      responseType: "blob" ,
+    }
+  );
+
+  return response.data;
+};
+

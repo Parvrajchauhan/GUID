@@ -22,7 +22,7 @@ const Signup = () => {
     try {
       const res=await handleRegister(credentials);
 
-      navigate("/");
+      navigate("/report");
 
     } catch (error) {
       console.error("Login failed", error);

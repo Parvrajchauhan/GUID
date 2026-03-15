@@ -83,10 +83,8 @@ const ReportRow = ({ report, idx }) => {
     );
 };
 
-/* ── Shared inner panel markup ── */
 const PanelInner = ({ reports }) => (
     <>
-        {/* Fixed header */}
         <div className="flex-shrink-0 px-5 pt-6 pb-4
             border-b border-white/[0.06]
             flex items-center justify-between">
@@ -105,7 +103,6 @@ const PanelInner = ({ reports }) => (
             </span>
         </div>
 
-        {/* Scrollable list */}
         <div className="flex-1 min-h-0 overflow-y-auto px-2 py-2 space-y-1
             [&::-webkit-scrollbar]:w-[4px]
             [&::-webkit-scrollbar-track]:rounded-full
@@ -120,7 +117,6 @@ const PanelInner = ({ reports }) => (
     </>
 );
 
-/* ── Main export ── */
 const PreviousReports = ({ reports }) => {
     if (!reports || reports.length === 0) return null;
 

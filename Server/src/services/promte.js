@@ -96,4 +96,78 @@ YOUR ANALYSIS TASKS
 `;
 return prom;}
 
-module.exports = {prompt};
+
+const prompt1=(report)=>{const prom = 
+`
+   You are a senior career coach, ATS optimization expert, and technical interviewer with over 15 years of experience in talent acquisition at leading technology companies.
+
+Your task is to analyze the candidate's resume in relation to the provided job description and produce an improved, ATS-optimized version of the resume tailored specifically for the role.
+
+The output must be structured as **clean HTML code only**, representing the improved resume content.
+
+Your responsibilities include:
+
+1. Carefully analyze the job description to identify:
+   - key responsibilities
+   - required technical skills
+   - preferred qualifications
+   - important keywords used by ATS systems.
+
+2. Compare the job description with the candidate's resume and:
+   - highlight relevant experience
+   - align skills with the job requirements
+   - restructure bullet points for stronger impact
+   - incorporate missing but relevant keywords (without fabricating experience).
+
+3. Rewrite the resume so it:
+   - maximizes ATS keyword matching
+   - uses strong action verbs
+   - emphasizes measurable achievements
+   - aligns closely with the job requirements
+   - remains truthful to the candidate's background.
+
+4. Organize the output into a clean professional structure using semantic HTML such as:
+   - <section>
+   - <h2>
+   - <ul>
+   - <li>
+   - <strong>
+
+5. The resume should include the following sections where applicable:
+   - Professional Summary
+   - Technical Skills
+   - Work Experience
+   - Projects
+   - Education
+   - Certifications (if applicable)
+
+6. Maintain concise, impactful bullet points and ensure the resume reads naturally while remaining optimized for ATS scanning.
+
+IMPORTANT RULES
+
+- Do NOT invent experience or skills that are not implied in the original resume.
+- Improve wording, organization, and keyword alignment only.
+- Ensure the final output is **only valid HTML code** without explanations, markdown formatting, or comments.
+
+INPUT DATA
+
+JOB TITLE:
+${report.jobTitle}
+
+JOB DESCRIPTION:
+${report.jobDescription}
+
+CANDIDATE RESUME:
+${report.resumeText}
+
+Return JSON strictly in this format:
+
+{
+  "html": "<full resume html>"
+}`
+
+
+return prom
+
+}
+module.exports = {prompt,prompt1};

@@ -88,5 +88,8 @@ const ReportZodSchema = z.object({
     preparationPlan5Task3:     z.string().describe("Task 3 for day 5"),
 });
 
+const ResumePdfSchema=z.object({
+    html: z.string().describe("modified Resume based on Job description in the form of HTML code")
+})
 
-module.exports = { ReportZodSchema };
+module.exports = { ReportZodSchema ,ResumePdfSchema};

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { useReport } from "../hooks/report.hook";
 import InputCard from "../components/InputCard.input";
 import PreviousReports from "../components/PreviousReports.input";
+import LogoutButton from "../../auth/components/logout";
+
 const Input = () => {
     const { Loader, Usegenrate, Reports, Usegetall } = useReport();
     const navigate = useNavigate();
@@ -31,21 +33,21 @@ const Input = () => {
     }
 
     return (
-        /*
-         * Desktop : h-screen + overflow-hidden  → page never scrolls
-         * Mobile  : min-h-screen + overflow-auto → cards stack, page scrolls naturally
-         */
         <main className="
+            relative
             min-h-screen md:h-screen
             overflow-auto md:overflow-hidden
             flex items-start md:items-center justify-center
             p-4 md:p-8
             bg-gradient-to-br from-[#1a2328] via-[#2b3a42] to-[#36565F]
         ">
-            {/*
-             * Mobile  → flex-col : InputCard on top, PreviousReports below
-             * Desktop → flex-row : side by side, same height via items-stretch
-             */}
+
+            {/* Logout Button */}
+            <div className="absolute top-6 right-6 z-50">
+                <LogoutButton />
+            </div>
+
+            {/* Main Layout */}
             <div className={`
                 flex flex-col md:flex-row
                 md:items-stretch
@@ -54,8 +56,9 @@ const Input = () => {
                 ${hasPrevReports ? "max-w-[1280px]" : "max-w-[960px] md:justify-center"}
             `}>
                 <InputCard onSubmit={handleSubmit} />
-                <PreviousReports reports={Reports} />
+                {hasPrevReports && <PreviousReports reports={Reports} />}
             </div>
+
         </main>
     );
 };

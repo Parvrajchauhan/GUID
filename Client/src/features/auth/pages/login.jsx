@@ -20,7 +20,7 @@ const Login = () => {
     try {
       const res=await handleLogin(credentials);
 
-      navigate("/");
+      navigate("/report");
 
     } catch (error) {
       console.error("Login failed", error);

@@ -1,4 +1,4 @@
-const {generateResponse} = require("../services/ai.service");
+const {generateResponse,generateResume} = require("../services/ai.service");
 const pdfParse = require("pdf-parse");
 const Report = require("../models/Report.model");
 
@@ -54,6 +54,44 @@ const getAllReports = async (req, res) => {
 };
 
 
-module.exports = {reportController, getReportById, getAllReports};
+const generatePdf = async (req, res) => {
+  console.log("PDF endpoint hit");
+  try {
+    const { reportId } = req.params;
+    console.log("Report ID:", reportId);
+    const report = await Report.findById(reportId);
+
+    if (!report) {
+      return res.status(404).json({
+        message: "Report not found"
+      });
+    }
+
+    const { jobTitle, jobDescription, resumeText } = report;
+
+    const pdfBuffer = await generateResume({
+      jobTitle,
+      jobDescription,
+      resumeText
+    });
+
+   res.set({
+  "Content-Type": "application/pdf",
+  "Content-Disposition": `attachment; filename=resume_${reportId}.pdf`
+});
+
+    res.send(pdfBuffer);
+
+  } catch (error) {
+    console.error("PDF generation error:", error);
+
+    res.status(500).json({
+      message: "Failed to generate PDF",
+      error: error.message
+    });
+  }
+};
+
+module.exports = {reportController, getReportById, getAllReports,generatePdf};
 
 
