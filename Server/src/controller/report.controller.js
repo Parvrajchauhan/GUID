@@ -55,10 +55,8 @@ const getAllReports = async (req, res) => {
 
 
 const generatePdf = async (req, res) => {
-  console.log("PDF endpoint hit");
   try {
     const { reportId } = req.params;
-    console.log("Report ID:", reportId);
     const report = await Report.findById(reportId);
 
     if (!report) {

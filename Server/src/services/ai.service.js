@@ -5,7 +5,6 @@ const { ReportZodSchema, ResumePdfSchema } = require("./zodSchema");
 
 const { prompt, prompt1 } = require('./promte');
 const puppeteer = require('puppeteer');
-const { genrate } = require("../../../Client/src/features/Report/service/report.api");
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_API_KEY
 });

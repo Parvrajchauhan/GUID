@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build: ./Server
+    container_name: resume-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./Server/.env
+    restart: always
+
+  frontend:
+    build: ./Client
+    container_name: resume-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
