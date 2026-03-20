@@ -34,8 +34,8 @@ const registerUser = async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,          
+        sameSite: "None",      
     });
 
     res.status(201).json({
@@ -65,10 +65,10 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.cookie("token", token, {
+     res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,          
+        sameSite: "None",      
     });
 
     res.status(200).json({ message: 'Login successful', user: { id: user._id, username: user.username, email: user.email } });
@@ -82,9 +82,9 @@ const logout = async (req, res) => {
     }
 
     res.clearCookie("token", {
-        httpOnly: true,
-        secure: false,       
-        sameSite: "lax"
+       httpOnly: true,
+        secure: true,          
+        sameSite: "None",  
     });
 
     res.status(200).json({
