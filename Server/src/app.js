@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: ['https://guid-1.onrender.com/login'],
+    origin: ['https://guid-1.onrender.com'],
     credentials: true,
 }));
 app.set("trust proxy", 1);
