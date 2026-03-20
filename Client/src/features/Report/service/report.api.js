@@ -1,10 +1,11 @@
 import axios from "axios";
 
+const VITE_API_URL='https://guid-2.onrender.com'
+
 const api=axios.create({
-    baseURL:  import.meta.env.VITE_API_URL,
+    baseURL: VITE_API_URL,
     withCredentials: true
 });
-
 
 export const genrate=async ({jobDescription,jobTitle,resume})=>{
 
