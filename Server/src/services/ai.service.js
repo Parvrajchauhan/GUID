@@ -4,7 +4,6 @@ const { zodToJsonSchema } = require("zod-to-json-schema");
 const { ReportZodSchema, ResumePdfSchema } = require("./zodSchema");
 
 const { prompt, prompt1 } = require('./promte');
-const puppeteer = require('puppeteer-core');
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_API_KEY
 });
