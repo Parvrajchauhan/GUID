@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ReportContext } from "../report.context";
 import { genrate, getById, getall, ResumeBoost } from "../service/report.api";
-
+import { generatePDFFromHTMLString } from "../../utils/generatePDF.js";
 
 
 export const useReport = () => {
@@ -54,28 +54,16 @@ export const useReport = () => {
 
     const ResumePdf = async (reportId) => {
         setLoader(true);
-
         try {
-            const response = await ResumeBoost({ reportId });
-
-            const blob = new Blob([response], { type: "application/pdf" });
-            const url = window.URL.createObjectURL(blob);
-
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = `resume_${reportId}.pdf`;
-
-            document.body.appendChild(link);
-            link.click();
-
-            link.remove();
-            window.URL.revokeObjectURL(url);
-
+            const htmlString = await ResumeBoost({ reportId });
+            console.log("HTML received:", htmlString?.slice(0, 100)); 
+            await generatePDFFromHTMLString(htmlString, `resume_${reportId}.pdf`);
         } catch (error) {
             console.error("PDF download error:", error);
         } finally {
             setLoader(false);
         }
-    };
+    }
+
     return { Report, Loader, Reports, UsegetById, Usegetall, Usegenrate, ResumePdf }
 }

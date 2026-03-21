@@ -4,7 +4,7 @@ const { zodToJsonSchema } = require("zod-to-json-schema");
 const { ReportZodSchema, ResumePdfSchema } = require("./zodSchema");
 
 const { prompt, prompt1 } = require('./promte');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_API_KEY
 });
@@ -64,38 +64,6 @@ async function generateResponse(report) {
 
     return final;
 }
-
-
-async function generatePdfFromHTML(jsonContent) {
-
-    const html = Array.isArray(jsonContent)
-        ? jsonContent[0]
-        : jsonContent.html;
-
-    if (!html) {
-        throw new Error("HTML content missing from AI response");
-    }
-
-    const browser = await puppeteer.launch({
-        args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    });
-
-    const page = await browser.newPage();
-
-    await page.setContent(html, {
-        waitUntil: "networkidle0"
-    });
-
-    const pdfBuffer = await page.pdf({
-        format: "A4",
-        printBackground: true
-    });
-
-    await browser.close();
-
-
-    return pdfBuffer;
-}
 async function generateResume(report) {
     const promptContent = prompt1(report);
     const rawSchema = zodToJsonSchema(ResumePdfSchema);
@@ -115,11 +83,11 @@ async function generateResume(report) {
         throw new Error("AI returned empty response");
     }
 
-    let jsonContent;
+    let pdfBuffer;
 
     try {
-        jsonContent = JSON.parse(response.text);
-        const pdfBuffer = await generatePdfFromHTML(jsonContent);
+        pdfBuffer = JSON.parse(response.text);
+        console.log(pdfBuffer)
         return pdfBuffer;
     } catch (err) {
         console.error("Invalid JSON from AI:", response.text);
